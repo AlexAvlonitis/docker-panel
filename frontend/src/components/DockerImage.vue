@@ -1,7 +1,7 @@
 <template>
-  <li>
+  <CListGroupItem>
     {{ dockerImage }}
-  </li>
+  </CListGroupItem>
 </template>
 
 <script>

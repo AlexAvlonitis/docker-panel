@@ -1,6 +1,16 @@
 <template>
-  <div id="app">
-    <ImageList />
+  <div class="c-app">
+    <CWrapper>
+      <div class="c-body">
+        <main class="c-main">
+          <CContainer fluid>
+            <CRow>
+              <ImageList />
+            </CRow>
+          </CContainer>
+        </main>
+      </div>
+    </CWrapper>
   </div>
 </template>
 

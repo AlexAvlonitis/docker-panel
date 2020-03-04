@@ -1,15 +1,15 @@
 <template>
-  <div>
-    <h1>Image List</h1>
-    <ul>
+  <CCol col="12">
+    <CListGroup>
+      <h1>Image List</h1>
       <DockerImage
         v-for="(dockerImage, index) in dockerImages"
         v-bind:dockerImage="dockerImage"
         v-bind:index="index"
         v-bind:key="dockerImage.Id"
       />
-    </ul>
-  </div>
+    </CListGroup>
+  </CCol>
 </template>
 
 <script>
