@@ -6,6 +6,8 @@ const MainContainer = () => import('@/containers/MainContainer')
 
 // Views
 const Dashboard = () => import('@/views/Dashboard')
+const DockerImageList = () => import('@/views/images/DockerImageList')
+const DockerContainerList = () => import('@/views/containers/DockerContainerList')
 
 Vue.use(Router)
 
@@ -32,9 +34,12 @@ function configRoutes() {
         {
           path: 'images',
           name: 'Images',
-          component: {
-            render(c) { return c('router-view') }
-          },
+          component: DockerImageList
+        },
+        {
+          path: 'containers',
+          name: 'Containers',
+          component: DockerContainerList
         }
       ]
     }

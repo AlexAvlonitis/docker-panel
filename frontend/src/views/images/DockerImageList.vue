@@ -17,7 +17,7 @@
   import DockerImage from './DockerImage.vue';
 
   export default {
-    name: 'ImageList',
+    name: 'DockerImageList',
     components: {
       DockerImage
     },

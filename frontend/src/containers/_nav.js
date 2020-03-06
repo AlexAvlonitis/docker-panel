@@ -4,13 +4,19 @@ export default [
     _children: [
       {
         _name: 'CSidebarNavTitle',
-        _children: ['Docker Views']
+        _children: ['Panel']
       },
       {
         _name: 'CSidebarNavItem',
         name: 'Images',
         to: '/images',
-        icon: 'cil-drop'
+        icon: 'cilLayers'
+      },
+      {
+        _name: 'CSidebarNavItem',
+        name: 'Containers',
+        to: '/containers',
+        icon: 'cilPuzzle'
       }
     ]
   }

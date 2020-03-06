@@ -16,14 +16,12 @@
 </template>
 
 <script>
-  import ImageList from './ImageList.vue'
-  import Sidebar from './Sidebar.vue'
+import Sidebar from './Sidebar.vue'
 
-  export default {
-    name: 'MainContainer',
-    components: {
-      ImageList,
-      Sidebar
-    }
+export default {
+  name: 'MainContainer',
+  components: {
+    Sidebar
   }
+}
 </script>
