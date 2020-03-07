@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <CCol lg="6" md="12" sm="12">
+  <CRow>
+    <CCol lg="7" md="12" sm="12">
       <h1>Image List</h1>
       <div v-if=isLoading >
         <CRow alignHorizontal=center>
@@ -9,17 +9,23 @@
       </div>
       <CDataTable
         v-else
+        :items="dockerImages"
         class="mb-0 table-outline"
         hover
-        :items="dockerImages"
-        head-color="dark"
-        no-sorting
+        sorter
+        pagination
+        table-filter
+        clickableRows
+        @row-clicked="renderImage"
       />
     </CCol>
-    <CCol col="12">
-
+    <CCol lg="4">
+      <div v-if=renderImageDetail>
+        <h5>Details</h5>
+        <DockerImage :dockerImage="selectedImage" />
+      </div>
     </CCol>
-  </div>
+  </CRow>
 </template>
 
 <script>
@@ -35,7 +41,9 @@
     data () {
       return {
         dockerImages: null,
-        isLoading: true
+        renderImageDetail: false,
+        isLoading: true,
+        selectedImage: null
       }
     },
     mounted () {
@@ -51,6 +59,10 @@
         let images = data.map(obj => new Image(obj))
 
         return images
+      },
+      renderImage: function(img) {
+        this.renderImageDetail = true
+        this.selectedImage = img
       }
     }
   }

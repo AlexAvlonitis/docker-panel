@@ -1,7 +1,7 @@
 <template>
-  <CListGroupItem>
-    {{ dockerImage.Id }}
-  </CListGroupItem>
+  <div>
+    {{dockerImage}}
+  </div>
 </template>
 
 <script>
