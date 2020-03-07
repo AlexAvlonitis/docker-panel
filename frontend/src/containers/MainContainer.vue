@@ -2,6 +2,7 @@
   <div class="c-app">
     <Sidebar/>
     <CWrapper>
+      <Header />
       <div class="c-body">
         <main class="c-main">
           <CContainer fluid>
@@ -17,11 +18,13 @@
 
 <script>
 import Sidebar from './Sidebar.vue'
+import Header from './Header.vue'
 
 export default {
   name: 'MainContainer',
   components: {
-    Sidebar
+    Sidebar,
+    Header
   }
 }
 </script>
