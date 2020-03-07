@@ -1,21 +1,20 @@
 <template>
   <div>
     <CCol lg="6" md="12" sm="12">
-      <CListGroup>
-        <h1>Image List</h1>
-        <div v-if=isLoading >
-          <CRow alignHorizontal=center>
-            <CSpinner />
-          </CRow>
-        </div>
-        <DockerImage
-          v-else
-          v-for="(dockerImage, index) in dockerImages"
-          v-bind:dockerImage="dockerImage"
-          v-bind:index="index"
-          v-bind:key="dockerImage.Id"
-        />
-      </CListGroup>
+      <h1>Image List</h1>
+      <div v-if=isLoading >
+        <CRow alignHorizontal=center>
+          <CSpinner />
+        </CRow>
+      </div>
+      <CDataTable
+        v-else
+        class="mb-0 table-outline"
+        hover
+        :items="dockerImages"
+        head-color="dark"
+        no-sorting
+      />
     </CCol>
     <CCol col="12">
 
@@ -25,6 +24,7 @@
 
 <script>
   import axios from 'axios';
+  import Image from '../../objects/image';
   import DockerImage from './DockerImage.vue';
 
   export default {
@@ -42,9 +42,16 @@
       axios
         .get('http://localhost:1234/images')
         .then(response => {
-          this.dockerImages = response.data
+          this.dockerImages = this.normalizeData(response.data)
           this.isLoading = false
         })
+    },
+    methods: {
+      normalizeData: function(data) {
+        let images = data.map(obj => new Image(obj))
+
+        return images
+      }
     }
   }
 </script>

@@ -1,6 +1,6 @@
 <template>
   <CListGroupItem>
-    {{ dockerImage }}
+    {{ dockerImage.Id }}
   </CListGroupItem>
 </template>
 
