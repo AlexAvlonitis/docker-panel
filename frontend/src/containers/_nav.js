@@ -23,6 +23,12 @@ export default [
         name: 'Networks',
         to: '/networks',
         icon: 'cilGrid'
+      },
+      {
+        _name: 'CSidebarNavItem',
+        name: 'Volumes',
+        to: '/volumes',
+        icon: 'cilFile'
       }
     ]
   }

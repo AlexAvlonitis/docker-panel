@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/filters"
 )
 
 func initHeaders(w *http.ResponseWriter) {
@@ -37,4 +38,12 @@ func networkList(w http.ResponseWriter, r *http.Request) {
 	dieIfErr(err)
 
 	renderJSON(w, networks)
+}
+
+func volumeList(w http.ResponseWriter, r *http.Request) {
+	a := filters.Args{}
+	volumes, err := cli.VolumeList(context.Background(), a)
+	dieIfErr(err)
+
+	renderJSON(w, volumes)
 }

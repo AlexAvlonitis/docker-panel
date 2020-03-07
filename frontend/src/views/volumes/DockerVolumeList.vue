@@ -2,18 +2,18 @@
   <div>
     <CCol lg="6" md="12" sm="12">
       <CListGroup>
-        <h1>Image List</h1>
+        <h1>Volume List</h1>
         <div v-if=isLoading >
           <CRow alignHorizontal=center>
             <CSpinner />
           </CRow>
         </div>
-        <DockerImage
+        <DockerVolume
           v-else
-          v-for="(dockerImage, index) in dockerImages"
-          v-bind:dockerImage="dockerImage"
+          v-for="(dockerVolume, index) in dockerVolumes"
+          v-bind:dockerVolume="dockerVolume"
           v-bind:index="index"
-          v-bind:key="dockerImage.Id"
+          v-bind:key="dockerVolume.Id"
         />
       </CListGroup>
     </CCol>
@@ -25,24 +25,24 @@
 
 <script>
   import axios from 'axios';
-  import DockerImage from './DockerImage.vue';
+  import DockerVolume from './DockerVolume.vue';
 
   export default {
-    name: 'DockerImageList',
+    name: 'DockerVolumeList',
     components: {
-      DockerImage
+      DockerVolume
     },
     data () {
       return {
-        dockerImages: null,
+        dockerVolumes: null,
         isLoading: true
       }
     },
     mounted () {
       axios
-        .get('http://localhost:1234/images')
+        .get('http://localhost:1234/volumes')
         .then(response => {
-          this.dockerImages = response.data
+          this.dockerVolumes = response.data.Volumes
           this.isLoading = false
         })
     }

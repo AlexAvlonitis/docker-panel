@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/docker/docker/client"
@@ -20,8 +19,8 @@ func dieIfErr(err error) {
 
 func main() {
 	dieIfErr(cliErr)
-	router := InitRouter()
+	router := NewRouter()
 
 	fmt.Println("Server running at " + httpAddr)
-	log.Fatal(http.ListenAndServe(httpAddr, router))
+	dieIfErr(http.ListenAndServe(httpAddr, router))
 }

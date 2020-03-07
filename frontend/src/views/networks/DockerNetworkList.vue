@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CCol lg="6" sm="12">
+    <CCol lg="6" md="12" sm="12">
       <CListGroup>
         <h1>Network List</h1>
         <div v-if=isLoading >

@@ -9,6 +9,7 @@ const Dashboard = () => import('@/views/Dashboard')
 const DockerImageList = () => import('@/views/images/DockerImageList')
 const DockerContainerList = () => import('@/views/containers/DockerContainerList')
 const DockerNetworkList = () => import('@/views/networks/DockerNetworkList')
+const DockerVolumeList = () => import('@/views/volumes/DockerVolumeList')
 
 Vue.use(Router)
 
@@ -46,6 +47,11 @@ function configRoutes() {
           path: 'networks',
           name: 'Networks',
           component: DockerNetworkList
+        },
+        {
+          path: 'volumes',
+          name: 'Volumes',
+          component: DockerVolumeList
         }
       ]
     }
