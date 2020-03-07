@@ -1,5 +1,5 @@
 {
-  "name": "Docker Admin Panel Frontend",
+  "name": "docker-admin-panel",
   "description": "Frontend admin panel for the docker engine",
   "author": {
     "name": "Alex Avlonitis",
