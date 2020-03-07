@@ -12,4 +12,5 @@ func InitRouter() *mux.Router {
 func initRoutes(router *mux.Router) {
 	router.HandleFunc("/images", imageList).Methods("GET")
 	router.HandleFunc("/containers", containerList).Methods("GET")
+	router.HandleFunc("/networks", networkList).Methods("GET")
 }

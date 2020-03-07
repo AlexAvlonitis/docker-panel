@@ -17,6 +17,12 @@ export default [
         name: 'Containers',
         to: '/containers',
         icon: 'cilPuzzle'
+      },
+      {
+        _name: 'CSidebarNavItem',
+        name: 'Networks',
+        to: '/networks',
+        icon: 'cilGrid'
       }
     ]
   }

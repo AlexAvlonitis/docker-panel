@@ -21,6 +21,14 @@ func imageList(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(images)
 }
 
+func networkList(w http.ResponseWriter, r *http.Request) {
+	networks, err := cli.NetworkList(context.Background(), types.NetworkListOptions{})
+	dieIfErr(err)
+
+	initHeaders(&w)
+	json.NewEncoder(w).Encode(networks)
+}
+
 func containerList(w http.ResponseWriter, r *http.Request) {
 	containers, err := cli.ContainerList(context.Background(), types.ContainerListOptions{})
 	dieIfErr(err)
