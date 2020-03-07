@@ -1,21 +1,11 @@
 {
-  "name": "@coreui/coreui-free-vue-admin-template",
-  "version": "3.0.0",
-  "description": "Open Source Bootstrap Admin Template",
+  "name": "Docker Admin Panel Frontend",
+  "description": "Frontend admin panel for the docker engine",
   "author": {
-    "name": "CoreUI",
-    "url": "https://coreui.io",
-    "github": "https://github.com/coreui",
-    "twitter": "https://twitter.com/core_ui"
+    "name": "Alex Avlonitis",
+    "url": "https://github.com/alexavlonitis"
   },
-  "contributors": [
-    {
-      "name": "CoreUI Team",
-      "url": "https://github.com/orgs/coreui/people"
-    }
-  ],
-  "homepage": "http://coreui.io",
-  "copyright": "Copyright 2020 creativeLabs Łukasz Holeczek",
+  "copyright": "Copyright 2020 Alex Avlonitis",
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
