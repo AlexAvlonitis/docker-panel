@@ -12,6 +12,7 @@
           </CContainer>
         </main>
       </div>
+      <Footer />
     </CWrapper>
   </div>
 </template>
@@ -19,12 +20,14 @@
 <script>
 import Sidebar from './Sidebar.vue'
 import Header from './Header.vue'
+import Footer from './Footer.vue'
 
 export default {
   name: 'MainContainer',
   components: {
     Sidebar,
-    Header
+    Header,
+    Footer
   }
 }
 </script>
