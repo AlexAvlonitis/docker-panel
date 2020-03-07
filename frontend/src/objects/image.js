@@ -1,13 +1,8 @@
 class Image {
   constructor(imgObj) {
-    this.id = this._trimID(imgObj.Id)
     this.nameTag = this._repoName(imgObj.RepoTags)
+    this.id = imgObj.Id
     this.size = this._bytesToGB(imgObj.Size)
-    this.meta = imgObj
-  }
-
-  _trimID(id) {
-    return id.slice(0, 20) + '...'
   }
 
   _repoName(repoTags) {
