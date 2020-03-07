@@ -13,26 +13,28 @@ func initHeaders(w *http.ResponseWriter) {
 	(*w).Header().Set("Content-Type", "application/json")
 }
 
+func renderJSON(w http.ResponseWriter, data interface{}) {
+	initHeaders(&w)
+	json.NewEncoder(w).Encode(data)
+}
+
 func imageList(w http.ResponseWriter, r *http.Request) {
 	images, err := cli.ImageList(context.Background(), types.ImageListOptions{})
 	dieIfErr(err)
 
-	initHeaders(&w)
-	json.NewEncoder(w).Encode(images)
-}
-
-func networkList(w http.ResponseWriter, r *http.Request) {
-	networks, err := cli.NetworkList(context.Background(), types.NetworkListOptions{})
-	dieIfErr(err)
-
-	initHeaders(&w)
-	json.NewEncoder(w).Encode(networks)
+	renderJSON(w, images)
 }
 
 func containerList(w http.ResponseWriter, r *http.Request) {
 	containers, err := cli.ContainerList(context.Background(), types.ContainerListOptions{})
 	dieIfErr(err)
 
-	initHeaders(&w)
-	json.NewEncoder(w).Encode(containers)
+	renderJSON(w, containers)
+}
+
+func networkList(w http.ResponseWriter, r *http.Request) {
+	networks, err := cli.NetworkList(context.Background(), types.NetworkListOptions{})
+	dieIfErr(err)
+
+	renderJSON(w, networks)
 }
