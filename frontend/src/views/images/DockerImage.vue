@@ -1,49 +1,34 @@
 <template>
-  <div>
-    <div v-if=isLoading>
-      <CRow alignHorizontal=center>
-        <CSpinner />
-      </CRow>
-    </div>
-    <vue-json-pretty
-      v-else
-      selectableType=single
-      :data=imageJSON
-    />
+  <div v-on:click="emitClickEvent" style="cursor: pointer;">
+    <CWidgetDropdown
+      :header=image.size
+      :text=image.nameTag
+      color="info"
+    >
+      <CDropdown
+        class="float-right"
+        color="transparent p-0"
+        placement="bottom-end"
+      >
+        <template #toggler-content>
+          <CIcon name="cil-settings"/>
+        </template>
+        <CDropdownItem>Action</CDropdownItem>
+        <CDropdownItem>Another action</CDropdownItem>
+        <CDropdownItem disabled>Disabled action</CDropdownItem>
+      </CDropdown>
+    </CWidgetDropdown>
   </div>
 </template>
 
 <script>
-  import axios from 'axios';
-  import VueJsonPretty from 'vue-json-pretty';
-
   export default {
     name: 'DockerImage',
-    props: ['dockerImageID'],
-    data () {
-      return {
-        imageJSON: null,
-        isLoading: true
-      }
-    },
-    components: {
-      VueJsonPretty
-    },
+    props: ['image'],
     methods: {
-      getImage: function(imageID) {
-        axios
-          .get(`http://localhost:1234/images/${imageID}`)
-          .then(response => {
-            this.imageJSON = response.data
-            this.isLoading = false
-          })
+      emitClickEvent: function() {
+        this.$emit('image-clicked', this.image)
       }
-    },
-    mounted () {
-      this.getImage(this.dockerImageID)
-    },
-    updated () {
-      this.getImage(this.dockerImageID)
     }
   }
 </script>
