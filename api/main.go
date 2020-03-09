@@ -19,8 +19,8 @@ func dieIfErr(err error) {
 
 func main() {
 	dieIfErr(cliErr)
-	router := NewRouter()
+	r := NewRouter()
 
 	fmt.Println("Server running at " + httpAddr)
-	dieIfErr(http.ListenAndServe(httpAddr, router))
+	dieIfErr(http.ListenAndServe(httpAddr, r))
 }

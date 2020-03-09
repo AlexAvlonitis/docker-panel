@@ -7,11 +7,49 @@ import (
 
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/filters"
+	"github.com/gorilla/mux"
 )
 
-func initHeaders(w *http.ResponseWriter) {
-	(*w).Header().Set("Access-Control-Allow-Origin", "*")
-	(*w).Header().Set("Content-Type", "application/json")
+// ImageList returns `docker image ls` as json
+func ImageList(w http.ResponseWriter, r *http.Request) {
+	images, err := cli.ImageList(context.Background(), types.ImageListOptions{})
+	dieIfErr(err)
+
+	renderJSON(w, images)
+}
+
+// ImageInspect returns `docker image inspect {id}` as json
+func ImageInspect(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	images, _, err := cli.ImageInspectWithRaw(context.Background(), params["imageID"])
+	dieIfErr(err)
+
+	renderJSON(w, images)
+}
+
+// ContainerList returns `docker container ls` as json
+func ContainerList(w http.ResponseWriter, r *http.Request) {
+	containers, err := cli.ContainerList(context.Background(), types.ContainerListOptions{})
+	dieIfErr(err)
+
+	renderJSON(w, containers)
+}
+
+// NetworkList returns `docker network ls` as json
+func NetworkList(w http.ResponseWriter, r *http.Request) {
+	networks, err := cli.NetworkList(context.Background(), types.NetworkListOptions{})
+	dieIfErr(err)
+
+	renderJSON(w, networks)
+}
+
+// VolumeList returns `docker volume ls` as json
+func VolumeList(w http.ResponseWriter, r *http.Request) {
+	a := filters.Args{}
+	volumes, err := cli.VolumeList(context.Background(), a)
+	dieIfErr(err)
+
+	renderJSON(w, volumes)
 }
 
 func renderJSON(w http.ResponseWriter, data interface{}) {
@@ -19,31 +57,7 @@ func renderJSON(w http.ResponseWriter, data interface{}) {
 	json.NewEncoder(w).Encode(data)
 }
 
-func imageList(w http.ResponseWriter, r *http.Request) {
-	images, err := cli.ImageList(context.Background(), types.ImageListOptions{})
-	dieIfErr(err)
-
-	renderJSON(w, images)
-}
-
-func containerList(w http.ResponseWriter, r *http.Request) {
-	containers, err := cli.ContainerList(context.Background(), types.ContainerListOptions{})
-	dieIfErr(err)
-
-	renderJSON(w, containers)
-}
-
-func networkList(w http.ResponseWriter, r *http.Request) {
-	networks, err := cli.NetworkList(context.Background(), types.NetworkListOptions{})
-	dieIfErr(err)
-
-	renderJSON(w, networks)
-}
-
-func volumeList(w http.ResponseWriter, r *http.Request) {
-	a := filters.Args{}
-	volumes, err := cli.VolumeList(context.Background(), a)
-	dieIfErr(err)
-
-	renderJSON(w, volumes)
+func initHeaders(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+	(*w).Header().Set("Content-Type", "application/json")
 }
