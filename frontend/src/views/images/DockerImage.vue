@@ -29,13 +29,21 @@
     components: {
       VueJsonPretty
     },
+    methods: {
+      getImage: function(imageID) {
+        axios
+          .get(`http://localhost:1234/images/${imageID}`)
+          .then(response => {
+            this.imageJSON = response.data
+            this.isLoading = false
+          })
+      }
+    },
     mounted () {
-      axios
-        .get(`http://localhost:1234/images/${this.dockerImageID}`)
-        .then(response => {
-          this.imageJSON = response.data
-          this.isLoading = false
-        })
+      this.getImage(this.dockerImageID)
+    },
+    updated () {
+      this.getImage(this.dockerImageID)
     }
   }
 </script>

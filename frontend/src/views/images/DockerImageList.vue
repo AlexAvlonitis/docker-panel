@@ -40,30 +40,33 @@
     components: {
       DockerImage
     },
-    data () {
+    data() {
       return {
         dockerImages: null,
         isLoading: true,
         selectedImage: null
       }
     },
-    mounted () {
-      axios
-        .get('http://localhost:1234/images')
-        .then(response => {
-          this.dockerImages = this.normalizeData(response.data)
-          this.isLoading = false
-        })
-    },
     methods: {
-      normalizeData: function(data) {
+      getImages: function() {
+        axios
+          .get('http://localhost:1234/images')
+          .then(response => {
+            this.dockerImages = this.normalizeData(response.data)
+            this.isLoading = false
+          })
+      },
+      normalizeData: function(imagesJSON) {
         this.isImageSelected = false
-        let images = data.map(obj => new Image(obj))
+        let images = imagesJSON.map(obj => new Image(obj))
         return images
       },
       renderImage: function(img) {
         this.selectedImage = img
       }
+    },
+    mounted () {
+      this.getImages()
     }
   }
 </script>
