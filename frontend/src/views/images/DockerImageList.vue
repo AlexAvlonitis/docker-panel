@@ -14,7 +14,10 @@
     <CCol lg="7" sm="12" md="12">
       <div v-if=selectedImage>
         <h5>Details</h5>
-        <DockerImageInspect :dockerImageID="selectedImage.id" />
+        <DockerImageInspect
+          :dockerImage="selectedImage"
+          :isLoading="true"
+        />
       </div>
     </CCol>
   </CRow>

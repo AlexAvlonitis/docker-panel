@@ -5,7 +5,9 @@
         <CSpinner />
       </CRow>
     </div>
-    {{imageJSON}}
+    <div v-else>
+      {{imageJSON}}
+    </div>
   </div>
 </template>
 
@@ -14,11 +16,11 @@
 
   export default {
     name: 'DockerImageInspect',
-    props: ['dockerImageID'],
+    props: ['dockerImage', 'isLoading'],
     data () {
       return {
         imageJSON: null,
-        isLoading: true
+        isLoading: this.isLoading
       }
     },
     methods: {
@@ -32,10 +34,10 @@
       }
     },
     mounted () {
-      this.getImage(this.dockerImageID)
+      this.getImage(this.dockerImage.id)
     },
     updated () {
-      this.getImage(this.dockerImageID)
+      this.getImage(this.dockerImage.id)
     }
   }
 </script>
