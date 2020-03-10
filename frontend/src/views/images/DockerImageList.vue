@@ -13,7 +13,7 @@
     </CCol>
     <CCol lg="7" sm="12" md="12">
       <div v-if=selectedImage>
-        <h5>Details</h5>
+        <h3 class="mb-3">Details</h3>
         <DockerImageInspect
           :dockerImage="selectedImage"
           :isLoading="true"
