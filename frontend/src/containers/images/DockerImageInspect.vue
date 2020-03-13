@@ -5,9 +5,7 @@
         <CSpinner />
       </CRow>
     </div>
-    <pre class="p-2 code-container" v-else>
-      {{ stringifyJSON() }}
-    </pre>
+    <pre class="p-2 code-container" v-else>{{stringifyJSON()}}</pre>
   </div>
 </template>
 
@@ -33,7 +31,7 @@
           })
       },
       stringifyJSON: function() {
-        return JSON.stringify(this.imageJSON, null, "\t")
+        return JSON.stringify(this.imageJSON, null, 2)
       }
     },
     mounted () {

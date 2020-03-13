@@ -5,9 +5,14 @@
         <CSpinner />
       </CRow>
     </div>
-    <pre class="p-2 code-container" v-else>
-      {{ stringifyJSON() }}
-    </pre>
+    <div v-else>
+      <CRow>
+        <CCol lg="12" class="mb-1">
+          Filter JSON by key: <input v-model="JSONkey"/>
+        </CCol>
+      </CRow>
+      <pre class="p-2 code-container">{{stringifyJSON()}}</pre>
+    </div>
   </div>
 </template>
 
@@ -20,7 +25,8 @@
     data () {
       return {
         networkJSON: null,
-        loading: this.isLoading
+        loading: this.isLoading,
+        JSONkey: null
       }
     },
     methods: {
@@ -33,7 +39,17 @@
           })
       },
       stringifyJSON: function() {
-        return JSON.stringify(this.networkJSON, null, "\t")
+        if (this.JSONkey === null || this.JSONkey === ""){
+          return JSON.stringify(this.networkJSON, null, 2)
+        } else {
+          const keys = Object.keys(this.networkJSON)
+          let result = keys.filter(key => key.startsWith(this.JSONkey))
+
+          return JSON.stringify(this.pickKeys(this.networkJSON, result), null, 2)
+        }
+      },
+      pickKeys: function(obj, keys) {
+        return Object.assign({}, ...keys.map(k => k in obj ? {[k]: obj[k]} : {}))
       }
     },
     mounted () {
