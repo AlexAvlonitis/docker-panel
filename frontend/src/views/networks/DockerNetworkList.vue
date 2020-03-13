@@ -26,8 +26,8 @@
 <script>
   import axios from 'axios';
   import Network from '../../objects/network';
-  import DockerNetwork from './DockerNetwork.vue';
-  import DockerNetworkInspect from './DockerNetworkInspect.vue';
+  import DockerNetwork from '../../containers/networks/DockerNetwork';
+  import DockerNetworkInspect from '../../containers/networks/DockerNetworkInspect.vue';
 
   export default {
     name: 'DockerNetworkList',

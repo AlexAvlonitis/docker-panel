@@ -26,8 +26,8 @@
 <script>
   import axios from 'axios';
   import Image from '../../objects/image';
-  import DockerImageInspect from './DockerImageInspect.vue';
-  import DockerImage from './DockerImage.vue';
+  import DockerImageInspect from '../../containers/images/DockerImageInspect.vue';
+  import DockerImage from '../../containers/images/DockerImage.vue';
 
   export default {
     name: 'DockerImageList',
