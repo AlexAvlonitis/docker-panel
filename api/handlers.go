@@ -43,6 +43,18 @@ func NetworkList(w http.ResponseWriter, r *http.Request) {
 	renderJSON(w, networks)
 }
 
+// NetworkInspect returns `docker network inspect {id}` as json
+func NetworkInspect(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	insOpts := types.NetworkInspectOptions{}
+	networks, _, err := cli.NetworkInspectWithRaw(
+		context.Background(), params["networkID"], insOpts,
+	)
+	dieIfErr(err)
+
+	renderJSON(w, networks)
+}
+
 // VolumeList returns `docker volume ls` as json
 func VolumeList(w http.ResponseWriter, r *http.Request) {
 	a := filters.Args{}

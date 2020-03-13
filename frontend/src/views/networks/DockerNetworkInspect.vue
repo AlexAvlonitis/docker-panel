@@ -15,32 +15,32 @@
   import axios from 'axios';
 
   export default {
-    name: 'DockerImageInspect',
-    props: ['dockerImage', 'isLoading'],
+    name: 'DockerNetworkInspect',
+    props: ['dockerNetwork', 'isLoading'],
     data () {
       return {
-        imageJSON: null,
+        networkJSON: null,
         loading: this.isLoading
       }
     },
     methods: {
-      getImage: function(imageID) {
+      getNetwork: function(networkID) {
         axios
-          .get(`http://localhost:1234/images/${imageID}`)
+          .get(`http://localhost:1234/networks/${networkID}`)
           .then(response => {
-            this.imageJSON = response.data
+            this.networkJSON = response.data
             this.loading = false
           })
       },
       stringifyJSON: function() {
-        return JSON.stringify(this.imageJSON, null, "\t")
+        return JSON.stringify(this.networkJSON, null, "\t")
       }
     },
     mounted () {
-      this.getImage(this.dockerImage.id)
+      this.getNetwork(this.dockerNetwork.id)
     },
     updated () {
-      this.getImage(this.dockerImage.id)
+      this.getNetwork(this.dockerNetwork.id)
     }
   }
 </script>
