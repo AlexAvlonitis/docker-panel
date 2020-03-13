@@ -18,6 +18,7 @@
 
 <script>
   import axios from 'axios';
+  import stringify from '../../utils/textUtils'
 
   export default {
     name: 'DockerNetworkInspect',
@@ -39,17 +40,7 @@
           })
       },
       stringifyJSON: function() {
-        if (this.JSONkey === null || this.JSONkey === ""){
-          return JSON.stringify(this.networkJSON, null, 2)
-        } else {
-          const keys = Object.keys(this.networkJSON)
-          let result = keys.filter(key => key.startsWith(this.JSONkey))
-
-          return JSON.stringify(this.pickKeys(this.networkJSON, result), null, 2)
-        }
-      },
-      pickKeys: function(obj, keys) {
-        return Object.assign({}, ...keys.map(k => k in obj ? {[k]: obj[k]} : {}))
+        return stringify(this.networkJSON, this.JSONkey)
       }
     },
     mounted () {

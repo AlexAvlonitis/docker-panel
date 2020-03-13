@@ -5,12 +5,20 @@
         <CSpinner />
       </CRow>
     </div>
-    <pre class="p-2 code-container" v-else>{{stringifyJSON()}}</pre>
+    <div v-else>
+      <CRow>
+        <CCol lg="12" class="mb-1">
+          Filter JSON by key: <input v-model="JSONkey"/>
+        </CCol>
+      </CRow>
+      <pre class="p-2 code-container">{{stringifyJSON()}}</pre>
+    </div>
   </div>
 </template>
 
 <script>
   import axios from 'axios';
+  import stringify from '../../utils/textUtils'
 
   export default {
     name: 'DockerImageInspect',
@@ -18,7 +26,8 @@
     data () {
       return {
         imageJSON: null,
-        loading: this.isLoading
+        loading: this.isLoading,
+        JSONkey: null
       }
     },
     methods: {
@@ -31,7 +40,7 @@
           })
       },
       stringifyJSON: function() {
-        return JSON.stringify(this.imageJSON, null, 2)
+        return stringify(this.imageJSON, this.JSONkey)
       }
     },
     mounted () {
