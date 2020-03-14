@@ -1,4 +1,4 @@
-export function stringify(JSONdata, keyPressed) {
+export function objKeyFilter(JSONdata, keyPressed) {
   if (keyPressed === null || keyPressed === "") {
     return JSON.stringify(JSONdata, null, 2)
   } else {

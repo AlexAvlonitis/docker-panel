@@ -18,7 +18,8 @@
 
 <script>
   import axios from 'axios';
-  import { stringify } from '../../utils/textUtils'
+  import { objKeyFilter } from '../../utils/textUtils'
+  import HttpClient from '../../utils/httpClient'
 
   export default {
     name: 'DockerImageInspect',
@@ -32,15 +33,12 @@
     },
     methods: {
       getImage: function(imageID) {
-        axios
-          .get(`http://localhost:1234/images/${imageID}`)
-          .then(response => {
-            this.imageJSON = response.data
-            this.loading = false
-          })
+        HttpClient
+          .get(images, imageID)
+          .then(this.loading = false)
       },
       stringifyJSON: function() {
-        return stringify(this.imageJSON, this.JSONkey)
+        return objKeyFilter(this.imageJSON, this.JSONkey)
       }
     },
     mounted () {

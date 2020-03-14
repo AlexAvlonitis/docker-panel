@@ -18,7 +18,8 @@
 
 <script>
   import axios from 'axios';
-  import { stringify } from '../../utils/textUtils'
+  import HttpClient from '../../utils/httpClient'
+  import { objKeyFilter } from '../../utils/textUtils'
 
   export default {
     name: 'DockerNetworkInspect',
@@ -32,15 +33,12 @@
     },
     methods: {
       getNetwork: function(networkID) {
-        axios
-          .get(`http://localhost:1234/networks/${networkID}`)
-          .then(response => {
-            this.networkJSON = response.data
-            this.loading = false
-          })
+        HttpClient
+          .get('networks', networkID)
+          .then(this.loading = false)
       },
       stringifyJSON: function() {
-        return stringify(this.networkJSON, this.JSONkey)
+        return objKeyFilter(this.networkJSON, this.JSONkey)
       }
     },
     mounted () {

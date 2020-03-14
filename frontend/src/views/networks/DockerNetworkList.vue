@@ -33,6 +33,7 @@
 <script>
   import axios from 'axios';
   import Network from '../../objects/network';
+  import HttpClient from '../../utils/httpClient'
   import { arrayFilter } from '../../utils/textUtils';
   import DockerNetwork from '../../containers/networks/DockerNetwork';
   import DockerNetworkInspect from '../../containers/networks/DockerNetworkInspect.vue';
@@ -66,12 +67,9 @@
       },
     },
     mounted () {
-      axios
-        .get('http://localhost:1234/networks')
-        .then(response => {
-          this.dockerNetworks = this.normalizeData(response.data)
-          this.isLoading = false
-        })
+      HttpClient
+        .get('networks')
+        .then(this.isLoading = false)
     }
   }
 </script>

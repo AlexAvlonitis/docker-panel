@@ -33,6 +33,7 @@
 <script>
   import axios from 'axios';
   import Image from '../../objects/image';
+  import HttpClient from '../../utils/httpClient'
   import { arrayFilter } from '../../utils/textUtils'
   import DockerImageInspect from '../../containers/images/DockerImageInspect.vue';
   import DockerImage from '../../containers/images/DockerImage.vue';
@@ -53,14 +54,14 @@
     },
     methods: {
       getImages: function() {
-        axios
-          .get('http://localhost:1234/images')
-          .then(response => {
-            this.dockerImages = this.normalizeData(response.data)
-            this.isLoading = false
-          })
+        HttpClient
+          .get('images')
+          .then(this.isLoading = false)
       },
       imageList: function() {
+        if (this.imgName == null)
+          return dockerImages
+
         return arrayFilter(this.dockerImages, this.imgName)
       },
       normalizeData: function(imagesJSON) {
