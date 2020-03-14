@@ -2,7 +2,7 @@
   <div v-on:click="emitClickEvent" style="cursor: pointer;">
     <CWidgetDropdown
       :header=image.size
-      :text=image.nameTag
+      :text=image.name
       color="info"
     >
       <CDropdown

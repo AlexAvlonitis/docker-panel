@@ -7,8 +7,15 @@
           <CSpinner />
         </CRow>
       </div>
-      <div v-else v-for="img in dockerImages" v-bind:key="img.id">
-        <DockerImage :image=img @image-clicked="renderImage"/>
+      <div v-else>
+        <CRow>
+          <CCol lg="12" class="mb-1">
+            Filter list by name: <input v-model="imgName"/>
+          </CCol>
+        </CRow>
+        <div v-for="img in imageList()" v-bind:key="img.id">
+          <DockerImage :image=img @image-clicked="renderImage"/>
+        </div>
       </div>
     </CCol>
     <CCol lg="7" sm="12" md="12">
@@ -26,6 +33,7 @@
 <script>
   import axios from 'axios';
   import Image from '../../objects/image';
+  import { arrayFilter } from '../../utils/textUtils'
   import DockerImageInspect from '../../containers/images/DockerImageInspect.vue';
   import DockerImage from '../../containers/images/DockerImage.vue';
 
@@ -39,7 +47,8 @@
       return {
         dockerImages: null,
         isLoading: true,
-        selectedImage: null
+        selectedImage: null,
+        imgName: null
       }
     },
     methods: {
@@ -50,6 +59,9 @@
             this.dockerImages = this.normalizeData(response.data)
             this.isLoading = false
           })
+      },
+      imageList: function() {
+        return arrayFilter(this.dockerImages, this.imgName)
       },
       normalizeData: function(imagesJSON) {
         this.isImageSelected = false

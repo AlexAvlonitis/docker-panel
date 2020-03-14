@@ -18,7 +18,7 @@
 
 <script>
   import axios from 'axios';
-  import stringify from '../../utils/textUtils'
+  import { stringify } from '../../utils/textUtils'
 
   export default {
     name: 'DockerNetworkInspect',

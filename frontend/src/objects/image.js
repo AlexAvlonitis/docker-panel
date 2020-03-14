@@ -1,6 +1,6 @@
 class Image {
   constructor(imgObj) {
-    this.nameTag = this._repoName(imgObj.RepoTags)
+    this.name = this._repoName(imgObj.RepoTags)
     this.id = imgObj.Id
     this.size = this._bytesToGB(imgObj.Size)
   }

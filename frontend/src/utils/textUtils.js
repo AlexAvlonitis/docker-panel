@@ -1,4 +1,4 @@
-export default function stringify(JSONdata, keyPressed) {
+export function stringify(JSONdata, keyPressed) {
   if (keyPressed === null || keyPressed === "") {
     return JSON.stringify(JSONdata, null, 2)
   } else {
@@ -6,6 +6,15 @@ export default function stringify(JSONdata, keyPressed) {
     let result = keys.filter(key => key.startsWith(keyPressed))
 
     return JSON.stringify(pickKeys(JSONdata, result), null, 2)
+  }
+}
+
+export function arrayFilter(array, keyPressed) {
+  if (keyPressed === null || keyPressed === "") {
+    return array
+  } else {
+    let result = array.filter(obj => obj.name.startsWith(keyPressed))
+    return result
   }
 }
 

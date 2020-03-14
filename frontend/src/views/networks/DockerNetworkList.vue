@@ -7,8 +7,15 @@
           <CSpinner />
         </CRow>
       </div>
-      <div v-else v-for="network in dockerNetworks" v-bind:key="network.id">
-        <DockerNetwork :network=network @network-clicked="renderNetwork"/>
+      <div v-else>
+        <CRow>
+          <CCol lg="12" class="mb-1">
+            Filter list by name: <input v-model="networkName"/>
+          </CCol>
+        </CRow>
+        <div v-for="network in networkList()" v-bind:key="network.id">
+          <DockerNetwork :network=network @network-clicked="renderNetwork"/>
+        </div>
       </div>
     </CCol>
     <CCol lg="7" sm="12" md="12">
@@ -26,6 +33,7 @@
 <script>
   import axios from 'axios';
   import Network from '../../objects/network';
+  import { arrayFilter } from '../../utils/textUtils';
   import DockerNetwork from '../../containers/networks/DockerNetwork';
   import DockerNetworkInspect from '../../containers/networks/DockerNetworkInspect.vue';
 
@@ -40,7 +48,8 @@
         selectedNetwork: null,
         dockerNetworks: null,
         isLoading: true,
-        isNetworkSelected: false
+        isNetworkSelected: false,
+        networkName: null
       }
     },
     methods: {
@@ -51,7 +60,10 @@
         this.isNetworkSelected = false
         let networks = networksJSON.map(obj => new Network(obj))
         return networks
-      }
+      },
+      networkList: function() {
+        return arrayFilter(this.dockerNetworks, this.networkName)
+      },
     },
     mounted () {
       axios
