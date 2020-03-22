@@ -35,6 +35,19 @@ func ContainerList(w http.ResponseWriter, r *http.Request) {
 	renderJSON(w, containers)
 }
 
+// ContainerInspect returns `docker volume inspect {id}` as json
+func ContainerInspect(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	containers, _, err := cli.ContainerInspectWithRaw(
+		context.Background(),
+		params["containerID"],
+		true,
+	)
+	dieIfErr(err)
+
+	renderJSON(w, containers)
+}
+
 // NetworkList returns `docker network ls` as json
 func NetworkList(w http.ResponseWriter, r *http.Request) {
 	networks, err := cli.NetworkList(context.Background(), types.NetworkListOptions{})

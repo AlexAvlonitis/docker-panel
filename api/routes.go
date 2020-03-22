@@ -13,6 +13,7 @@ func initRoutes(r *mux.Router) {
 	r.HandleFunc("/images", ImageList)
 	r.HandleFunc("/images/{imageID}", ImageInspect)
 	r.HandleFunc("/containers", ContainerList)
+	r.HandleFunc("/containers/{containerID}", ContainerInspect)
 	r.HandleFunc("/networks", NetworkList)
 	r.HandleFunc("/networks/{networkID}", NetworkInspect)
 	r.HandleFunc("/volumes", VolumeList)
