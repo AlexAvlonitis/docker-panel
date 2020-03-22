@@ -65,7 +65,7 @@
         return arrayFilter(this.dockerNetworks, this.networkName)
       },
     },
-    mounted () {
+    created () {
       HttpClient
         .get('networks')
         .then((data) => {

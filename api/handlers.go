@@ -64,6 +64,15 @@ func VolumeList(w http.ResponseWriter, r *http.Request) {
 	renderJSON(w, volumes)
 }
 
+// VolumeInspect returns `docker volume inspect {id}` as json
+func VolumeInspect(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	volumes, _, err := cli.VolumeInspectWithRaw(context.Background(), params["volumeID"])
+	dieIfErr(err)
+
+	renderJSON(w, volumes)
+}
+
 func renderJSON(w http.ResponseWriter, data interface{}) {
 	initHeaders(&w)
 	json.NewEncoder(w).Encode(data)

@@ -33,7 +33,7 @@
         isLoading: false
       }
     },
-    mounted () {
+    created () {
       axios
         .get('http://localhost:1234/containers')
         .then(response => {

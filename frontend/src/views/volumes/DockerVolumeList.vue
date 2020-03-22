@@ -1,49 +1,76 @@
 <template>
-  <div>
-    <CCol lg="6" md="12" sm="12">
-      <CListGroup>
-        <h1>Volume List</h1>
-        <div v-if=isLoading >
-          <CRow alignHorizontal=center>
-            <CSpinner />
-          </CRow>
+  <CRow>
+    <CCol lg="5" md="12" sm="12" overflow-auto>
+      <h1>Volumes List</h1>
+      <div v-if=isLoading >
+        <CRow alignHorizontal=center>
+          <CSpinner />
+        </CRow>
+      </div>
+      <div v-else>
+        <CRow>
+          <CCol lg="12" class="mb-1">
+            Filter list by name: <input v-model="volumeName"/>
+          </CCol>
+        </CRow>
+        <div v-for="vol in volumeList()" v-bind:key="vol.name">
+          <DockerVolume :volume=vol @volume-clicked="renderVolume"/>
         </div>
-        <DockerVolume
-          v-else
-          v-for="(dockerVolume, index) in dockerVolumes"
-          v-bind:dockerVolume="dockerVolume"
-          v-bind:index="index"
-          v-bind:key="dockerVolume.Id"
+      </div>
+    </CCol>
+    <CCol lg="7" sm="12" md="12">
+      <div v-if=selectedVolume>
+        <h3 class="mb-3">Details</h3>
+        <DockerVolumeInspect
+          :dockerVolume="selectedVolume"
+          :isLoading="true"
         />
-      </CListGroup>
+      </div>
     </CCol>
-    <CCol col="12">
-
-    </CCol>
-  </div>
+  </CRow>
 </template>
 
 <script>
-  import axios from 'axios';
-  import DockerVolume from './DockerVolume.vue';
+  import Volume from '@/objects/volume';
+  import HttpClient from '@/utils/httpClient';
+  import { arrayFilter } from '@/utils/textUtils'
+  import DockerVolumeInspect from '@/containers/volumes/DockerVolumeInspect.vue';
+  import DockerVolume from '@/containers/volumes/DockerVolume.vue';
 
   export default {
     name: 'DockerVolumeList',
     components: {
-      DockerVolume
+      DockerVolume,
+      DockerVolumeInspect
     },
     data () {
       return {
         dockerVolumes: null,
-        isLoading: true
+        isLoading: true,
+        selectedVolume: null,
+        volumeName: null
       }
     },
-    mounted () {
-      axios
-        .get('http://localhost:1234/volumes')
-        .then(response => {
-          this.dockerVolumes = response.data.Volumes
-          this.isLoading = false
+    methods: {
+      volumeList: function() {
+        if (this.volumeName == null)
+          return this.dockerVolumes
+
+        return arrayFilter(this.dockerVolumes, this.volumeName)
+      },
+      normalizeData: function(volumesJSON) {
+        return volumesJSON.map(obj => new Volume(obj))
+      },
+      renderVolume: function(vol) {
+        this.selectedVolume = vol
+      }
+    },
+    created () {
+      HttpClient
+        .get('volumes')
+        .then((data) => {
+          this.dockerVolumes = this.normalizeData(data.Volumes)
+          this.isLoading = false;
         })
     }
   }

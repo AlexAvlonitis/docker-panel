@@ -31,7 +31,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
   import Image from '@/objects/image';
   import HttpClient from '@/utils/httpClient';
   import { arrayFilter } from '@/utils/textUtils'
@@ -60,9 +59,7 @@
         return arrayFilter(this.dockerImages, this.imgName)
       },
       normalizeData: function(imagesJSON) {
-        this.isImageSelected = false
-        let images = imagesJSON.map(obj => new Image(obj))
-        return images
+        return imagesJSON.map(obj => new Image(obj))
       },
       renderImage: function(img) {
         this.selectedImage = img
