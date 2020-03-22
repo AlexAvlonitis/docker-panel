@@ -10,7 +10,7 @@
       <div v-else>
         <CRow>
           <CCol lg="12" class="mb-1">
-            Filter list by name: <input v-model="networkName"/>
+            Filter by name: <input v-model="networkName"/>
           </CCol>
         </CRow>
         <div v-for="network in networkList()" v-bind:key="network.id">

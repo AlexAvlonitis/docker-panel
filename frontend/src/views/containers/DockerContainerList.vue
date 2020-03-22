@@ -10,7 +10,7 @@
       <div v-else>
         <CRow>
           <CCol lg="12" class="mb-1">
-            Filter list by name: <input v-model="containerName"/>
+            Filter by name: <input v-model="containerName"/>
           </CCol>
         </CRow>
         <div v-for="container in containerList()" v-bind:key="container.id">

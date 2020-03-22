@@ -10,7 +10,7 @@
       <div v-else>
         <CRow>
           <CCol lg="12" class="mb-1">
-            Filter list by name: <input v-model="imgName"/>
+            Filter by name: <input v-model="imgName"/>
           </CCol>
         </CRow>
         <div v-for="img in imageList()" v-bind:key="img.id">

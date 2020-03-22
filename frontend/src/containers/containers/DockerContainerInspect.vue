@@ -8,7 +8,7 @@
     <div v-else>
       <CRow>
         <CCol lg="12" class="mb-1">
-          Filter JSON by key: <input v-model="JSONkey"/>
+          Filter by key: <input v-model="JSONkey"/>
         </CCol>
       </CRow>
       <pre class="p-2 code-container">{{stringifyJSON()}}</pre>
