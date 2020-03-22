@@ -32,11 +32,11 @@
 
 <script>
   import axios from 'axios';
-  import Image from '../../objects/image';
-  import HttpClient from '../../utils/httpClient'
-  import { arrayFilter } from '../../utils/textUtils'
-  import DockerImageInspect from '../../containers/images/DockerImageInspect.vue';
-  import DockerImage from '../../containers/images/DockerImage.vue';
+  import Image from '@/objects/image';
+  import HttpClient from '@/utils/httpClient';
+  import { arrayFilter } from '@/utils/textUtils'
+  import DockerImageInspect from '@/containers/images/DockerImageInspect.vue';
+  import DockerImage from '@/containers/images/DockerImage.vue';
 
   export default {
     name: 'DockerImageList',
@@ -53,14 +53,9 @@
       }
     },
     methods: {
-      getImages: function() {
-        HttpClient
-          .get('images')
-          .then(this.isLoading = false)
-      },
       imageList: function() {
         if (this.imgName == null)
-          return dockerImages
+          return this.dockerImages
 
         return arrayFilter(this.dockerImages, this.imgName)
       },
@@ -73,8 +68,13 @@
         this.selectedImage = img
       }
     },
-    mounted () {
-      this.getImages()
+    created () {
+      HttpClient
+        .get('images')
+        .then((data) => {
+          this.dockerImages = this.normalizeData(data)
+          this.isLoading = false;
+        })
     }
   }
 </script>

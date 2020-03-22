@@ -31,12 +31,11 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import Network from '../../objects/network';
-  import HttpClient from '../../utils/httpClient'
-  import { arrayFilter } from '../../utils/textUtils';
-  import DockerNetwork from '../../containers/networks/DockerNetwork';
-  import DockerNetworkInspect from '../../containers/networks/DockerNetworkInspect.vue';
+  import Network from '@/objects/network';
+  import HttpClient from '@/utils/httpClient'
+  import { arrayFilter } from '@/utils/textUtils';
+  import DockerNetwork from '@/containers/networks/DockerNetwork';
+  import DockerNetworkInspect from '@/containers/networks/DockerNetworkInspect.vue';
 
   export default {
     name: 'DockerNetworkList',
@@ -69,7 +68,10 @@
     mounted () {
       HttpClient
         .get('networks')
-        .then(this.isLoading = false)
+        .then((data) => {
+          this.dockerNetworks = this.normalizeData(data)
+          this.isLoading = false
+        })
     }
   }
 </script>

@@ -17,9 +17,8 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import HttpClient from '../../utils/httpClient'
-  import { objKeyFilter } from '../../utils/textUtils'
+  import { objKeyFilter } from '@/utils/textUtils'
+  import HttpClient from '@/utils/httpClient'
 
   export default {
     name: 'DockerNetworkInspect',
@@ -35,7 +34,10 @@
       getNetwork: function(networkID) {
         HttpClient
           .get('networks', networkID)
-          .then(this.loading = false)
+          .then((data) => {
+            this.networkJSON = data
+            this.loading = false
+          })
       },
       stringifyJSON: function() {
         return objKeyFilter(this.networkJSON, this.JSONkey)

@@ -2,15 +2,19 @@ import axios from 'axios'
 
 const BASE_URL = "http://localhost:1234"
 
-export default class HttpClient {
-  static get(path, id = null) {
+const HttpClient = {
+  get(path, id = null) {
     const url = new URL(BASE_URL)
-    url.path = path
+    url.pathname = path
     if (id != null)
-      url.path += id
+      url.pathname += `/${id}`
 
-    axios
-      .get(url)
-      .then(response => response.data)
+    return(
+      axios
+        .get(url)
+        .then(response => response.data)
+    )
   }
 }
+
+export default HttpClient

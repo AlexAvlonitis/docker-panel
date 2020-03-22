@@ -17,9 +17,8 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import { objKeyFilter } from '../../utils/textUtils'
-  import HttpClient from '../../utils/httpClient'
+  import { objKeyFilter } from '@/utils/textUtils'
+  import HttpClient from '@/utils/httpClient'
 
   export default {
     name: 'DockerImageInspect',
@@ -34,8 +33,11 @@
     methods: {
       getImage: function(imageID) {
         HttpClient
-          .get(images, imageID)
-          .then(this.loading = false)
+          .get('images', imageID)
+          .then((data) => {
+            this.imageJSON = data
+            this.loading = false
+          })
       },
       stringifyJSON: function() {
         return objKeyFilter(this.imageJSON, this.JSONkey)
