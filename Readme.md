@@ -1,6 +1,7 @@
-## Docker Admin Panel (WIP)
+## Docker Admin Panel
+Admin Panel for local docker environment
 
-Admin Panel for local docker environment, practising go
+![](demo.gif)
 
 * Go - Backend Api interfacing docker engine (WIP)
 * VueJS - Frontend (WIP)
