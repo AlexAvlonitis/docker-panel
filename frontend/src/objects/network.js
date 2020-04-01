@@ -1,13 +1,13 @@
 class Network {
-  constructor(imgObj) {
-    this.name = imgObj.Name
-    this.ipAddr = this._ipAddr(imgObj)
-    this.id = imgObj.Id
+  constructor(obj) {
+    this.name = obj.Name
+    this.ipAddr = this._ipAddr(obj)
+    this.id = obj.Id
   }
 
-  _ipAddr(imgObj) {
-    let conf = imgObj.IPAM.Config[0]
-    return conf ? conf.Subnet : null
+  _ipAddr(obj) {
+    let conf = obj.IPAM.Config[0]
+    return conf ? conf.Subnet : 'N/A'
   }
 }
 

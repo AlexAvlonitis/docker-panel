@@ -1,6 +1,6 @@
 <template>
   <CRow>
-    <CCol lg="5" md="12" sm="12" overflow-auto>
+    <CCol lg="12" md="12" sm="12" overflow-auto>
       <h1>Images List</h1>
       <div v-if=isLoading >
         <CRow alignHorizontal=center>
@@ -8,17 +8,34 @@
         </CRow>
       </div>
       <div v-else>
-        <CRow>
-          <CCol lg="12" class="mb-1">
-            Filter by name: <input v-model="imgName"/>
-          </CCol>
-        </CRow>
-        <div v-for="img in imageList()" v-bind:key="img.id">
-          <DockerObject :object=img @object-clicked="renderImage"/>
-        </div>
+        <CDataTable
+          :items="imageList()"
+          :fields="fields"
+          column-filter
+          table-filter
+          items-per-page-select
+          :items-per-page="5"
+          hover
+          sorter
+          pagination
+        >
+          <template #show_details="{item}">
+            <td class="py-2">
+              <CButton
+                color="primary"
+                variant="outline"
+                square
+                size="sm"
+                @click="renderImage(item)"
+              >
+               Details
+              </CButton>
+            </td>
+          </template>
+        </CDataTable>
       </div>
     </CCol>
-    <CCol lg="7" sm="12" md="12">
+    <CCol lg="12" sm="12" md="12">
       <div v-if=selectedImage>
         <h3 class="mb-3">Details</h3>
         <DockerObjectInspect
@@ -36,12 +53,23 @@
   import HttpClient from '@/utils/httpClient';
   import { arrayFilter } from '@/utils/textUtils'
   import DockerObjectInspect from '@/containers/DockerObjectInspect.vue';
-  import DockerObject from '@/containers/DockerObject.vue';
+
+  const fields = [
+    'name',
+    'id',
+    'size',
+    {
+      key: 'show_details',
+      label: '',
+      _style: 'width:1%',
+      sorter: false,
+      filter: false
+    }
+  ]
 
   export default {
     name: 'DockerImageList',
     components: {
-      DockerObject,
       DockerObjectInspect
     },
     data() {
@@ -49,7 +77,8 @@
         dockerImages: null,
         isLoading: true,
         selectedImage: null,
-        imgName: null
+        imgName: null,
+        fields
       }
     },
     methods: {
