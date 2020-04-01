@@ -14,15 +14,16 @@
           </CCol>
         </CRow>
         <div v-for="img in imageList()" v-bind:key="img.id">
-          <DockerImage :image=img @image-clicked="renderImage"/>
+          <DockerObject :object=img @object-clicked="renderImage"/>
         </div>
       </div>
     </CCol>
     <CCol lg="7" sm="12" md="12">
       <div v-if=selectedImage>
         <h3 class="mb-3">Details</h3>
-        <DockerImageInspect
-          :dockerImage="selectedImage"
+        <DockerObjectInspect
+          httpEndpoint="images"
+          :object="selectedImage"
           :isLoading="true"
         />
       </div>
@@ -34,14 +35,14 @@
   import Image from '@/objects/image';
   import HttpClient from '@/utils/httpClient';
   import { arrayFilter } from '@/utils/textUtils'
-  import DockerImageInspect from '@/containers/images/DockerImageInspect.vue';
-  import DockerImage from '@/containers/images/DockerImage.vue';
+  import DockerObjectInspect from '@/containers/DockerObjectInspect.vue';
+  import DockerObject from '@/containers/DockerObject.vue';
 
   export default {
     name: 'DockerImageList',
     components: {
-      DockerImage,
-      DockerImageInspect
+      DockerObject,
+      DockerObjectInspect
     },
     data() {
       return {

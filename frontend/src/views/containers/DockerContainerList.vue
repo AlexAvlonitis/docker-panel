@@ -14,15 +14,16 @@
           </CCol>
         </CRow>
         <div v-for="container in containerList()" v-bind:key="container.id">
-          <DockerContainer :container=container @container-clicked="renderContainer"/>
+          <DockerObject :object=container @object-clicked="renderContainer"/>
         </div>
       </div>
     </CCol>
     <CCol lg="7" sm="12" md="12">
       <div v-if=selectedContainer>
         <h3 class="mb-3">Details</h3>
-        <DockerContainerInspect
-          :dockerContainer="selectedContainer"
+        <DockerObjectInspect
+          httpEndpoint="containers"
+          :object="selectedContainer"
           :isLoading="true"
         />
       </div>
@@ -34,14 +35,14 @@
   import Container from '@/objects/container';
   import HttpClient from '@/utils/httpClient'
   import { arrayFilter } from '@/utils/textUtils';
-  import DockerContainer from '@/containers/containers/DockerContainer';
-  import DockerContainerInspect from '@/containers/containers/DockerContainerInspect.vue';
+  import DockerObjectInspect from '@/containers/DockerObjectInspect.vue';
+  import DockerObject from '@/containers/DockerObject.vue';
 
   export default {
     name: 'DockerContainerList',
     components: {
-      DockerContainer,
-      DockerContainerInspect
+      DockerObject,
+      DockerObjectInspect
     },
     data () {
       return {

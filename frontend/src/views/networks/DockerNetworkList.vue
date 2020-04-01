@@ -14,15 +14,16 @@
           </CCol>
         </CRow>
         <div v-for="network in networkList()" v-bind:key="network.id">
-          <DockerNetwork :network=network @network-clicked="renderNetwork"/>
+          <DockerObject :object=network @object-clicked="renderNetwork"/>
         </div>
       </div>
     </CCol>
     <CCol lg="7" sm="12" md="12">
       <div v-if=selectedNetwork>
         <h3 class="mb-3">Details</h3>
-        <DockerNetworkInspect
-          :dockerNetwork="selectedNetwork"
+        <DockerObjectInspect
+          httpEndpoint="networks"
+          :object="selectedNetwork"
           :isLoading="true"
         />
       </div>
@@ -34,14 +35,14 @@
   import Network from '@/objects/network';
   import HttpClient from '@/utils/httpClient'
   import { arrayFilter } from '@/utils/textUtils';
-  import DockerNetwork from '@/containers/networks/DockerNetwork';
-  import DockerNetworkInspect from '@/containers/networks/DockerNetworkInspect.vue';
+  import DockerObjectInspect from '@/containers/DockerObjectInspect.vue';
+  import DockerObject from '@/containers/DockerObject.vue';
 
   export default {
     name: 'DockerNetworkList',
     components: {
-      DockerNetwork,
-      DockerNetworkInspect
+      DockerObject,
+      DockerObjectInspect
     },
     data () {
       return {

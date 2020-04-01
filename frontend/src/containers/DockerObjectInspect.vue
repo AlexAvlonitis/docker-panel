@@ -21,33 +21,39 @@
   import HttpClient from '@/utils/httpClient'
 
   export default {
-    name: 'DockerImageInspect',
-    props: ['dockerImage', 'isLoading'],
+    name: 'DockerObjectInspect',
+    props: ['object', 'isLoading', 'httpEndpoint'],
     data () {
       return {
-        imageJSON: null,
+        objectJSON: null,
         loading: this.isLoading,
         JSONkey: null
       }
     },
     methods: {
-      getImage: function(imageID) {
+      getObject: function(objID) {
         HttpClient
-          .get('images', imageID)
+          .get(this.httpEndpoint, objID)
           .then((data) => {
-            this.imageJSON = data
+            this.objectJSON = data
             this.loading = false
           })
       },
       stringifyJSON: function() {
-        return objKeyFilter(this.imageJSON, this.JSONkey)
+        return objKeyFilter(this.objectJSON, this.JSONkey)
       }
     },
     mounted () {
-      this.getImage(this.dockerImage.id)
+      if (this.object.constructor.name === "Volume")
+        return this.getObject(this.object.name)
+
+      this.getObject(this.object.id)
     },
     updated () {
-      this.getImage(this.dockerImage.id)
+      if (this.object.constructor.name === "Volume")
+        return this.getObject(this.object.name)
+
+      this.getObject(this.object.id)
     }
   }
 </script>

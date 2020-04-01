@@ -14,15 +14,16 @@
           </CCol>
         </CRow>
         <div v-for="vol in volumeList()" v-bind:key="vol.name">
-          <DockerVolume :volume=vol @volume-clicked="renderVolume"/>
+          <DockerObject :object=vol @object-clicked="renderVolume"/>
         </div>
       </div>
     </CCol>
     <CCol lg="7" sm="12" md="12">
       <div v-if=selectedVolume>
         <h3 class="mb-3">Details</h3>
-        <DockerVolumeInspect
-          :dockerVolume="selectedVolume"
+        <DockerObjectInspect
+          httpEndpoint="volumes"
+          :object="selectedVolume"
           :isLoading="true"
         />
       </div>
@@ -34,14 +35,14 @@
   import Volume from '@/objects/volume';
   import HttpClient from '@/utils/httpClient';
   import { arrayFilter } from '@/utils/textUtils'
-  import DockerVolumeInspect from '@/containers/volumes/DockerVolumeInspect.vue';
-  import DockerVolume from '@/containers/volumes/DockerVolume.vue';
+  import DockerObjectInspect from '@/containers/DockerObjectInspect.vue';
+  import DockerObject from '@/containers/DockerObject.vue';
 
   export default {
     name: 'DockerVolumeList',
     components: {
-      DockerVolume,
-      DockerVolumeInspect
+      DockerObject,
+      DockerObjectInspect
     },
     data () {
       return {

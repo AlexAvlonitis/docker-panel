@@ -1,8 +1,8 @@
 <template>
   <div v-on:click="emitClickEvent" style="cursor: pointer;">
     <CWidgetDropdown
-      :header=network.name
-      :text=network.ipAddr
+      :header=object.name
+      :text=object.image
       color="info"
     >
       <CDropdown
@@ -23,11 +23,11 @@
 
 <script>
   export default {
-    name: 'DockerNetwork',
-    props: ['network'],
+    name: 'DockerObject',
+    props: ['object'],
     methods: {
       emitClickEvent: function() {
-        this.$emit('network-clicked', this.network)
+        this.$emit('object-clicked', this.object)
       }
     }
   }
