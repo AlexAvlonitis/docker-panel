@@ -20,6 +20,7 @@ import {
   cibCcVisa,
   cibStripe,
   cibPaypal,
+  cibDocker,
   cibGooglePay,
   cibCcAmex
 } from '@coreui/icons'
@@ -161,6 +162,7 @@ export const iconsSet = Object.assign(
     cibCcVisa,
     cibStripe,
     cibPaypal,
+    cibDocker,
     cibGooglePay,
     cibCcAmex
   }
