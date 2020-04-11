@@ -9,6 +9,8 @@ class InfoData {
 
     this.images = obj.Images
     this.id = obj.Id
+    this.version = obj.ServerVersion
+    this.os = obj.OperatingSystem
   }
 }
 

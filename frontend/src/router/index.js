@@ -5,11 +5,11 @@ import Router from 'vue-router'
 const MainContainer = () => import('@/containers/MainContainer')
 
 // Views
-const Dashboard = () => import('@/views/Dashboard')
-const DockerImageList = () => import('@/views/images/DockerImageList')
-const DockerContainerList = () => import('@/views/containers/DockerContainerList')
-const DockerNetworkList = () => import('@/views/networks/DockerNetworkList')
-const DockerVolumeList = () => import('@/views/volumes/DockerVolumeList')
+const Dashboard = () => import('@/views/Dashboard.vue')
+const DockerImageList = () => import('@/views/DockerImageList')
+const DockerContainerList = () => import('@/views/DockerContainerList')
+const DockerNetworkList = () => import('@/views/DockerNetworkList')
+const DockerVolumeList = () => import('@/views/DockerVolumeList')
 
 Vue.use(Router)
 
