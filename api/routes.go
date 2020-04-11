@@ -18,4 +18,5 @@ func initRoutes(r *mux.Router) {
 	r.HandleFunc("/networks/{networkID}", NetworkInspect)
 	r.HandleFunc("/volumes", VolumeList)
 	r.HandleFunc("/volumes/{volumeID}", VolumeInspect)
+	r.HandleFunc("/info", InfoHandler)
 }

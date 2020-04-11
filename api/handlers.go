@@ -10,6 +10,14 @@ import (
 	"github.com/gorilla/mux"
 )
 
+// InfoHandler returns `docker info` as json
+func InfoHandler(w http.ResponseWriter, r *http.Request) {
+	info, err := cli.Info(context.Background())
+	dieIfErr(err)
+
+	renderJSON(w, info)
+}
+
 // ImageList returns `docker image ls` as json
 func ImageList(w http.ResponseWriter, r *http.Request) {
 	images, err := cli.ImageList(context.Background(), types.ImageListOptions{})

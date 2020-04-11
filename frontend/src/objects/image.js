@@ -6,7 +6,8 @@ class Image {
   }
 
   _repoName(repoTags) {
-    return repoTags[0]
+    if(repoTags != null)
+      return repoTags[0]
   }
 
   _bytesToGB(bytes) {

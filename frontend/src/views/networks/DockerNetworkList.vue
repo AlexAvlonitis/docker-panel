@@ -50,7 +50,7 @@
 
 <script>
   import Network from '@/objects/network';
-  import HttpClient from '@/utils/httpClient'
+  import HttpClient from '@/utils/httpClient';
   import { arrayFilter } from '@/utils/textUtils';
   import DockerObjectInspect from '@/containers/DockerObjectInspect.vue';
 
