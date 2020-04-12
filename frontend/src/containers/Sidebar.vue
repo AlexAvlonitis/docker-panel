@@ -6,7 +6,10 @@
     @update:show="(value) => $store.commit('set', ['sidebarShow', value])"
   >
     <CSidebarBrand class="d-md-down-none" to="/">
-      <h5>Docker Admin Panel <CIcon class="ml-1" name="cib-docker"/></h5>
+      <h5>
+        <CIcon class="mr-1" size="xl" name="cib-docker"/>
+        Docker Admin Panel
+      </h5>
     </CSidebarBrand>
     <CRenderFunction flat :content-to-render="$options.nav"/>
     <CSidebarMinimizer
